@@ -4,6 +4,7 @@ import type { Metadata, Viewport } from 'next'
 
 import { Providers } from './providers'
 
+import { Wallet } from '@/components/wallet-provider'
 import { fontSans } from '@/config/fonts'
 import { siteConfig } from '@/config/site'
 
@@ -30,7 +31,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html suppressHydrationWarning lang='en'>
       <head />
       <body className={clsx('min-h-screen bg-background font-sans antialiased', fontSans.variable)}>
-        <Providers themeProps={{ attribute: 'class', defaultTheme: 'dark' }}>{children}</Providers>
+        <Providers themeProps={{ attribute: 'class', defaultTheme: 'dark' }}>
+          <Wallet>{children}</Wallet>
+        </Providers>
       </body>
     </html>
   )
