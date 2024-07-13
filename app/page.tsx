@@ -5,6 +5,7 @@ import AreaProvider from '@/components/area-provider'
 import { Button } from '@nextui-org/button'
 import { Card, CardBody, CardHeader } from '@nextui-org/card'
 import { Chip, type ChipProps } from '@nextui-org/chip'
+import { Divider } from '@nextui-org/divider'
 import { Dropdown, DropdownItem, DropdownMenu, DropdownSection, DropdownTrigger } from '@nextui-org/dropdown'
 import { Input } from '@nextui-org/input'
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from '@nextui-org/modal'
@@ -115,48 +116,178 @@ export default function Home() {
                 </Dropdown>
               </div>
             </div>
+            <div className='relative h-full w-full gap-4'>
+              <Card radius='lg' className=' h-full border border-content1 bg-background'>
+                <CardBody className=''>
+                  <div className='w-full flex gap-6 px-2 py-1'>
+                    <div className='p-4'>
+                      <div className='relative flex w-full items-center gap-4 pb-0'>
+                        <figure className='aspect-square w-[44px] animate-appearance-in rounded-lg bg-[#E7DBFE] p-1.5'>
+                          <svg
+                            className='h-full w-full'
+                            width='100'
+                            height='100'
+                            viewBox='0 0 100 100'
+                            fill='none'
+                            xmlns='http://www.w3.org/2000/svg'>
+                            <title>{}</title>
+                            <path fill-rule='evenodd' clip-rule='evenodd' d='M24.2677 40.1743H15V66.7677L24.2677 76.1498V40.1743Z' fill='#1A182D' />
+                            <path
+                              fill-rule='evenodd'
+                              clip-rule='evenodd'
+                              d='M41.6446 40.7539H32.377V84.3591L41.6446 93.7413V40.7539Z'
+                              fill='#1A182D'
+                            />
+                            <path
+                              fill-rule='evenodd'
+                              clip-rule='evenodd'
+                              d='M58.4423 40.4644C58.4423 45.1029 54.682 48.8632 50.0435 48.8632C49.9465 48.8632 49.8499 48.8616 49.7537 48.8583V58.1286C49.8501 58.1302 49.9467 58.1309 50.0435 58.1309C59.8005 58.1309 67.71 50.2214 67.71 40.4644C67.71 30.7074 59.8005 22.7979 50.0435 22.7979C40.2865 22.7979 32.377 30.7074 32.377 40.4644C32.377 47.1812 36.1254 53.0225 41.6444 56.0105V40.754H41.6495C41.6463 40.6579 41.6446 40.5613 41.6446 40.4644C41.6446 35.8258 45.4049 32.0655 50.0435 32.0655C54.682 32.0655 58.4423 35.8258 58.4423 40.4644Z'
+                              fill='#1A182D'
+                            />
+                            <path
+                              fill-rule='evenodd'
+                              clip-rule='evenodd'
+                              d='M49.7538 66.24C63.8295 66.24 75.24 54.8295 75.24 40.7538C75.24 26.6782 63.8295 15.2677 49.7538 15.2677C35.6782 15.2677 24.2677 26.6782 24.2677 40.7538C24.2677 41.3379 24.2873 41.9173 24.326 42.4915H24.2677V64.3821C18.5163 58.1814 15 49.8783 15 40.7538C15 21.5598 30.5598 6 49.7538 6C68.9479 6 84.5077 21.5598 84.5077 40.7538C84.5077 59.9479 68.9479 75.5077 49.7538 75.5077C49.7535 75.5077 49.7532 75.5077 49.7529 75.5077V66.24C49.7532 66.24 49.7535 66.24 49.7538 66.24ZM41.6436 64.9225C38.1573 63.753 35.0073 61.8503 32.3769 59.3976V70.8582C35.2336 72.5108 38.3474 73.7684 41.6436 74.5563V64.9225Z'
+                              fill='#1A182D'
+                            />
+                          </svg>
+                        </figure>
+                        <div className='space-y-1 leading-none'>
+                          <small className='text-default-500'>12 Pairs</small>
+                          <p className=' text-md '>Pyth Network</p>
+                        </div>
+                      </div>
 
-            <div className='relative grid h-full w-full grid-cols-4 grid-rows-2 gap-4'>
-              {/* <Card isFooterBlurred radius='lg' className=' rounded-3xl bg-background '>
-                <CardHeader className='relative flex w-full items-center gap-4 px-6 pt-6 pb-0'>
-                  <figure className='aspect-square w-[44px] animate-appearance-in rounded-lg bg-[#E7DBFE] p-1.5'>
-                    <svg className='h-full w-full' width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                      <title>{}</title>
-                      <path fill-rule='evenodd' clip-rule='evenodd' d='M24.2677 40.1743H15V66.7677L24.2677 76.1498V40.1743Z' fill='#1A182D' />
-                      <path fill-rule='evenodd' clip-rule='evenodd' d='M41.6446 40.7539H32.377V84.3591L41.6446 93.7413V40.7539Z' fill='#1A182D' />
-                      <path
-                        fill-rule='evenodd'
-                        clip-rule='evenodd'
-                        d='M58.4423 40.4644C58.4423 45.1029 54.682 48.8632 50.0435 48.8632C49.9465 48.8632 49.8499 48.8616 49.7537 48.8583V58.1286C49.8501 58.1302 49.9467 58.1309 50.0435 58.1309C59.8005 58.1309 67.71 50.2214 67.71 40.4644C67.71 30.7074 59.8005 22.7979 50.0435 22.7979C40.2865 22.7979 32.377 30.7074 32.377 40.4644C32.377 47.1812 36.1254 53.0225 41.6444 56.0105V40.754H41.6495C41.6463 40.6579 41.6446 40.5613 41.6446 40.4644C41.6446 35.8258 45.4049 32.0655 50.0435 32.0655C54.682 32.0655 58.4423 35.8258 58.4423 40.4644Z'
-                        fill='#1A182D'
-                      />
-                      <path
-                        fill-rule='evenodd'
-                        clip-rule='evenodd'
-                        d='M49.7538 66.24C63.8295 66.24 75.24 54.8295 75.24 40.7538C75.24 26.6782 63.8295 15.2677 49.7538 15.2677C35.6782 15.2677 24.2677 26.6782 24.2677 40.7538C24.2677 41.3379 24.2873 41.9173 24.326 42.4915H24.2677V64.3821C18.5163 58.1814 15 49.8783 15 40.7538C15 21.5598 30.5598 6 49.7538 6C68.9479 6 84.5077 21.5598 84.5077 40.7538C84.5077 59.9479 68.9479 75.5077 49.7538 75.5077C49.7535 75.5077 49.7532 75.5077 49.7529 75.5077V66.24C49.7532 66.24 49.7535 66.24 49.7538 66.24ZM41.6436 64.9225C38.1573 63.753 35.0073 61.8503 32.3769 59.3976V70.8582C35.2336 72.5108 38.3474 73.7684 41.6436 74.5563V64.9225Z'
-                        fill='#1A182D'
-                      />
-                    </svg>
-                  </figure>
-                  <div className='space-y-1 leading-none'>
-                    <small className='text-default-500'>12 Pairs</small>
-                    <p className=' text-md '>Pyth Network</p>
-                  </div>
-                </CardHeader>
-                <CardBody className='mt-5 px-6'>
-                  <small className='text-default-500'>Price Feed</small>
-                  <span className='mt-1 font-light text-[32px] leading-none'>
-                    <span className='text-[24px]'>$</span>50.340,345
-                  </span>
-                  <div className='flex gap-2 items-center text-default-500 mt-2'>
-                    <div className='w-[24px] h-[24px] bg-success-600/50 rounded-md flex items-center justify-center'>
-                      <div className=' aspect-square w-[20px] h-[20px] rounded-full flex items-center justify-center p-1 bg-success-400'>
-                        <MoveUpRight width={15} className='text-success-50' />
+                      <div className='mt-6 flex flex-col'>
+                        <small className='text-default-500'>Price </small>
+                        <span className='mt-1 font-light text-[32px] leading-none'>
+                          <span className='text-[24px]'>$</span>50.340,345
+                        </span>
+                        <div className='mt-2 flex items-center gap-2 text-default-500'>
+                          <div className='flex h-[24px] w-[24px] items-center justify-center rounded-md bg-danger-600/50'>
+                            <div className=' flex aspect-square h-[20px] w-[20px] items-center justify-center rounded-full bg-danger-400 p-1'>
+                              <MoveDownLeft width={15} className='text-danger-50' />
+                            </div>
+                          </div>
+                          <span className='text-danger-400 text-md mt-1'>6.25%</span>
+                        </div>
                       </div>
                     </div>
-                    <span className='text-success-400 text-md'>6.25%</span>
+
+                    <Divider orientation='vertical' />
+
+                    <div className='p-4'>
+                      <div className='relative flex w-full items-center gap-4 pb-0'>
+                        <figure className='aspect-square w-[44px] animate-appearance-in rounded-lg bg-[#E7DBFE] p-1.5'>
+                          <svg
+                            className='h-full w-full'
+                            width='100'
+                            height='100'
+                            viewBox='0 0 100 100'
+                            fill='none'
+                            xmlns='http://www.w3.org/2000/svg'>
+                            <title>{}</title>
+                            <path fill-rule='evenodd' clip-rule='evenodd' d='M24.2677 40.1743H15V66.7677L24.2677 76.1498V40.1743Z' fill='#1A182D' />
+                            <path
+                              fill-rule='evenodd'
+                              clip-rule='evenodd'
+                              d='M41.6446 40.7539H32.377V84.3591L41.6446 93.7413V40.7539Z'
+                              fill='#1A182D'
+                            />
+                            <path
+                              fill-rule='evenodd'
+                              clip-rule='evenodd'
+                              d='M58.4423 40.4644C58.4423 45.1029 54.682 48.8632 50.0435 48.8632C49.9465 48.8632 49.8499 48.8616 49.7537 48.8583V58.1286C49.8501 58.1302 49.9467 58.1309 50.0435 58.1309C59.8005 58.1309 67.71 50.2214 67.71 40.4644C67.71 30.7074 59.8005 22.7979 50.0435 22.7979C40.2865 22.7979 32.377 30.7074 32.377 40.4644C32.377 47.1812 36.1254 53.0225 41.6444 56.0105V40.754H41.6495C41.6463 40.6579 41.6446 40.5613 41.6446 40.4644C41.6446 35.8258 45.4049 32.0655 50.0435 32.0655C54.682 32.0655 58.4423 35.8258 58.4423 40.4644Z'
+                              fill='#1A182D'
+                            />
+                            <path
+                              fill-rule='evenodd'
+                              clip-rule='evenodd'
+                              d='M49.7538 66.24C63.8295 66.24 75.24 54.8295 75.24 40.7538C75.24 26.6782 63.8295 15.2677 49.7538 15.2677C35.6782 15.2677 24.2677 26.6782 24.2677 40.7538C24.2677 41.3379 24.2873 41.9173 24.326 42.4915H24.2677V64.3821C18.5163 58.1814 15 49.8783 15 40.7538C15 21.5598 30.5598 6 49.7538 6C68.9479 6 84.5077 21.5598 84.5077 40.7538C84.5077 59.9479 68.9479 75.5077 49.7538 75.5077C49.7535 75.5077 49.7532 75.5077 49.7529 75.5077V66.24C49.7532 66.24 49.7535 66.24 49.7538 66.24ZM41.6436 64.9225C38.1573 63.753 35.0073 61.8503 32.3769 59.3976V70.8582C35.2336 72.5108 38.3474 73.7684 41.6436 74.5563V64.9225Z'
+                              fill='#1A182D'
+                            />
+                          </svg>
+                        </figure>
+                        <div className='space-y-1 leading-none'>
+                          <small className='text-default-500'>12 Pairs</small>
+                          <p className=' text-md '>Pyth Network</p>
+                        </div>
+                      </div>
+
+                      <div className='mt-6 flex flex-col'>
+                        <small className='text-default-500'>Price </small>
+                        <span className='mt-1 font-light text-[32px] leading-none'>
+                          <span className='text-[24px]'>$</span>50.340,345
+                        </span>
+                        <div className='mt-2 flex items-center gap-2 text-default-500'>
+                          <div className='flex h-[24px] w-[24px] items-center justify-center rounded-md bg-danger-600/50'>
+                            <div className=' flex aspect-square h-[20px] w-[20px] items-center justify-center rounded-full bg-danger-400 p-1'>
+                              <MoveDownLeft width={15} className='text-danger-50' />
+                            </div>
+                          </div>
+                          <span className='text-danger-400 text-md mt-1'>6.25%</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <Divider orientation='vertical' />
+
+                    <div className='p-4'>
+                      <div className='relative flex w-full items-center gap-4 pb-0'>
+                        <figure className='aspect-square w-[44px] animate-appearance-in rounded-lg bg-[#E7DBFE] p-1.5'>
+                          <svg
+                            className='h-full w-full'
+                            width='100'
+                            height='100'
+                            viewBox='0 0 100 100'
+                            fill='none'
+                            xmlns='http://www.w3.org/2000/svg'>
+                            <title>{}</title>
+                            <path fill-rule='evenodd' clip-rule='evenodd' d='M24.2677 40.1743H15V66.7677L24.2677 76.1498V40.1743Z' fill='#1A182D' />
+                            <path
+                              fill-rule='evenodd'
+                              clip-rule='evenodd'
+                              d='M41.6446 40.7539H32.377V84.3591L41.6446 93.7413V40.7539Z'
+                              fill='#1A182D'
+                            />
+                            <path
+                              fill-rule='evenodd'
+                              clip-rule='evenodd'
+                              d='M58.4423 40.4644C58.4423 45.1029 54.682 48.8632 50.0435 48.8632C49.9465 48.8632 49.8499 48.8616 49.7537 48.8583V58.1286C49.8501 58.1302 49.9467 58.1309 50.0435 58.1309C59.8005 58.1309 67.71 50.2214 67.71 40.4644C67.71 30.7074 59.8005 22.7979 50.0435 22.7979C40.2865 22.7979 32.377 30.7074 32.377 40.4644C32.377 47.1812 36.1254 53.0225 41.6444 56.0105V40.754H41.6495C41.6463 40.6579 41.6446 40.5613 41.6446 40.4644C41.6446 35.8258 45.4049 32.0655 50.0435 32.0655C54.682 32.0655 58.4423 35.8258 58.4423 40.4644Z'
+                              fill='#1A182D'
+                            />
+                            <path
+                              fill-rule='evenodd'
+                              clip-rule='evenodd'
+                              d='M49.7538 66.24C63.8295 66.24 75.24 54.8295 75.24 40.7538C75.24 26.6782 63.8295 15.2677 49.7538 15.2677C35.6782 15.2677 24.2677 26.6782 24.2677 40.7538C24.2677 41.3379 24.2873 41.9173 24.326 42.4915H24.2677V64.3821C18.5163 58.1814 15 49.8783 15 40.7538C15 21.5598 30.5598 6 49.7538 6C68.9479 6 84.5077 21.5598 84.5077 40.7538C84.5077 59.9479 68.9479 75.5077 49.7538 75.5077C49.7535 75.5077 49.7532 75.5077 49.7529 75.5077V66.24C49.7532 66.24 49.7535 66.24 49.7538 66.24ZM41.6436 64.9225C38.1573 63.753 35.0073 61.8503 32.3769 59.3976V70.8582C35.2336 72.5108 38.3474 73.7684 41.6436 74.5563V64.9225Z'
+                              fill='#1A182D'
+                            />
+                          </svg>
+                        </figure>
+                        <div className='space-y-1 leading-none'>
+                          <small className='text-default-500'>12 Pairs</small>
+                          <p className=' text-md '>Pyth Network</p>
+                        </div>
+                      </div>
+
+                      <div className='mt-6 flex flex-col'>
+                        <small className='text-default-500'>Price </small>
+                        <span className='mt-1 font-light text-[32px] leading-none'>
+                          <span className='text-[24px]'>$</span>50.340,345
+                        </span>
+                        <div className='mt-2 flex items-center gap-2 text-default-500'>
+                          <div className='flex h-[24px] w-[24px] items-center justify-center rounded-md bg-danger-600/50'>
+                            <div className=' flex aspect-square h-[20px] w-[20px] items-center justify-center rounded-full bg-danger-400 p-1'>
+                              <MoveDownLeft width={15} className='text-danger-50' />
+                            </div>
+                          </div>
+                          <span className='text-danger-400 text-md mt-1'>6.25%</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div className='w-full absolute bottom-0 left-0 h-[54%]'>
+
+                  <div className='absolute bottom-0 left-0 h-[60%] w-full'>
                     <ResponsiveContainer width='100%' height='100%'>
                       <AreaChart
                         width={200}
@@ -170,24 +301,33 @@ export default function Home() {
                         }}>
                         <defs>
                           <linearGradient id='colorUv' x1='0' y1='0' x2='0' y2='1'>
-                            <stop offset='5%' stopColor='#795FF6' stopOpacity={0.4} />
-                            <stop offset='90%' stopColor='#D0C7F9' stopOpacity={0.1} />
+                            <stop offset='40%' stopColor='#795FF6' stopOpacity={0.4} />
+                            <stop offset='100%' stopColor='#000' stopOpacity={0.1} />
+                          </linearGradient>
+                        </defs>
+                        <defs>
+                          <linearGradient id='colorPv' x1='0' y1='0' x2='0' y2='1'>
+                            <stop offset='40%' stopColor='#0559D7' stopOpacity={0.4} />
+                            <stop offset='100%' stopColor='#000' stopOpacity={0.1} />
+                          </linearGradient>
+                        </defs>
+                        <defs>
+                          <linearGradient id='colorAmt' x1='0' y1='0' x2='0' y2='1'>
+                            <stop offset='40%' stopColor='#FF7A00' stopOpacity={0.4} />
+                            <stop offset='100%' stopColor='#000' stopOpacity={0.1} />
                           </linearGradient>
                         </defs>
                         <Tooltip coordinate={undefined} content={<p />} />
-                        <Area type='bump' dataKey='uv' strokeWidth={2} stroke='#E7DBFE' fill='url(#colorUv)' />
+                        <Area type='monotone' dataKey='uv' strokeWidth={2} stroke='#E7DBFE' fill='url(#colorUv)' />
+                        <Area type='monotone' dataKey='pv' strokeWidth={2} stroke='#0559D7' fill='url(#colorPv)' />
+                        <Area type='monotone' dataKey='amt' strokeWidth={2} stroke='#FF7A00' fill='url(#colorAmt)' />
                       </AreaChart>
                     </ResponsiveContainer>
                   </div>
                 </CardBody>
-                <div className='w-full absolute bottom-[60px] '>
-                  <svg width='373' height='1' viewBox='0 0 373 1' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                    <title>{}</title>
-                    <path d='M1 1H372' stroke='#4C4C53' stroke-linecap='round' stroke-dasharray='4 4' />
-                  </svg>
-                </div>
-              </Card> */}
-
+              </Card>
+            </div>
+            {/* <div className='relative grid h-full w-full grid-cols-4 grid-rows-2 gap-4'>
               {Array.from({ length: 4 }).map((_, index) => (
                 <Card key={index} radius='lg' className=' bg-background border border-content1'>
                   <CardHeader className='relative flex w-full items-center gap-4 px-6 pt-6 pb-0'>
@@ -260,7 +400,7 @@ export default function Home() {
                   </div>
                 </Card>
               ))}
-            </div>
+            </div> */}
           </div>
 
           <div className='absolute h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:linear-gradient(0deg,#000_5%,transparent_65%)]' />
@@ -348,3 +488,73 @@ export default function Home() {
     </section>
   )
 }
+//  {/* <Card isFooterBlurred radius='lg' className=' rounded-3xl bg-background '>
+//                 <CardHeader className='relative flex w-full items-center gap-4 px-6 pt-6 pb-0'>
+//                   <figure className='aspect-square w-[44px] animate-appearance-in rounded-lg bg-[#E7DBFE] p-1.5'>
+//                     <svg className='h-full w-full' width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'>
+//                       <title>{}</title>
+//                       <path fill-rule='evenodd' clip-rule='evenodd' d='M24.2677 40.1743H15V66.7677L24.2677 76.1498V40.1743Z' fill='#1A182D' />
+//                       <path fill-rule='evenodd' clip-rule='evenodd' d='M41.6446 40.7539H32.377V84.3591L41.6446 93.7413V40.7539Z' fill='#1A182D' />
+//                       <path
+//                         fill-rule='evenodd'
+//                         clip-rule='evenodd'
+//                         d='M58.4423 40.4644C58.4423 45.1029 54.682 48.8632 50.0435 48.8632C49.9465 48.8632 49.8499 48.8616 49.7537 48.8583V58.1286C49.8501 58.1302 49.9467 58.1309 50.0435 58.1309C59.8005 58.1309 67.71 50.2214 67.71 40.4644C67.71 30.7074 59.8005 22.7979 50.0435 22.7979C40.2865 22.7979 32.377 30.7074 32.377 40.4644C32.377 47.1812 36.1254 53.0225 41.6444 56.0105V40.754H41.6495C41.6463 40.6579 41.6446 40.5613 41.6446 40.4644C41.6446 35.8258 45.4049 32.0655 50.0435 32.0655C54.682 32.0655 58.4423 35.8258 58.4423 40.4644Z'
+//                         fill='#1A182D'
+//                       />
+//                       <path
+//                         fill-rule='evenodd'
+//                         clip-rule='evenodd'
+//                         d='M49.7538 66.24C63.8295 66.24 75.24 54.8295 75.24 40.7538C75.24 26.6782 63.8295 15.2677 49.7538 15.2677C35.6782 15.2677 24.2677 26.6782 24.2677 40.7538C24.2677 41.3379 24.2873 41.9173 24.326 42.4915H24.2677V64.3821C18.5163 58.1814 15 49.8783 15 40.7538C15 21.5598 30.5598 6 49.7538 6C68.9479 6 84.5077 21.5598 84.5077 40.7538C84.5077 59.9479 68.9479 75.5077 49.7538 75.5077C49.7535 75.5077 49.7532 75.5077 49.7529 75.5077V66.24C49.7532 66.24 49.7535 66.24 49.7538 66.24ZM41.6436 64.9225C38.1573 63.753 35.0073 61.8503 32.3769 59.3976V70.8582C35.2336 72.5108 38.3474 73.7684 41.6436 74.5563V64.9225Z'
+//                         fill='#1A182D'
+//                       />
+//                     </svg>
+//                   </figure>
+//                   <div className='space-y-1 leading-none'>
+//                     <small className='text-default-500'>12 Pairs</small>
+//                     <p className=' text-md '>Pyth Network</p>
+//                   </div>
+//                 </CardHeader>
+//                 <CardBody className='mt-5 px-6'>
+//                   <small className='text-default-500'>Price Feed</small>
+//                   <span className='mt-1 font-light text-[32px] leading-none'>
+//                     <span className='text-[24px]'>$</span>50.340,345
+//                   </span>
+//                   <div className='flex gap-2 items-center text-default-500 mt-2'>
+//                     <div className='w-[24px] h-[24px] bg-success-600/50 rounded-md flex items-center justify-center'>
+//                       <div className=' aspect-square w-[20px] h-[20px] rounded-full flex items-center justify-center p-1 bg-success-400'>
+//                         <MoveUpRight width={15} className='text-success-50' />
+//                       </div>
+//                     </div>
+//                     <span className='text-success-400 text-md'>6.25%</span>
+//                   </div>
+//                   <div className='w-full absolute bottom-0 left-0 h-[54%]'>
+//                     <ResponsiveContainer width='100%' height='100%'>
+//                       <AreaChart
+//                         width={200}
+//                         height={60}
+//                         data={data}
+//                         margin={{
+//                           top: 5,
+//                           right: 0,
+//                           left: 0,
+//                           bottom: 0,
+//                         }}>
+//                         <defs>
+//                           <linearGradient id='colorUv' x1='0' y1='0' x2='0' y2='1'>
+//                             <stop offset='5%' stopColor='#795FF6' stopOpacity={0.4} />
+//                             <stop offset='90%' stopColor='#D0C7F9' stopOpacity={0.1} />
+//                           </linearGradient>
+//                         </defs>
+//                         <Tooltip coordinate={undefined} content={<p />} />
+//                         <Area type='bump' dataKey='uv' strokeWidth={2} stroke='#E7DBFE' fill='url(#colorUv)' />
+//                       </AreaChart>
+//                     </ResponsiveContainer>
+//                   </div>
+//                 </CardBody>
+//                 <div className='w-full absolute bottom-[60px] '>
+//                   <svg width='373' height='1' viewBox='0 0 373 1' fill='none' xmlns='http://www.w3.org/2000/svg'>
+//                     <title>{}</title>
+//                     <path d='M1 1H372' stroke='#4C4C53' stroke-linecap='round' stroke-dasharray='4 4' />
+//                   </svg>
+//                 </div>
+//               </Card> */}
