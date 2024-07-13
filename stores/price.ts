@@ -55,14 +55,14 @@ export const usePriceStore = create<PriceState>()((set) => ({
       const allData = [...state.allData]
 
       allData.push({
-        pyth: provider === 'pyth' ? price : allData[allData.length - 1].pyth,
-        chainlink: provider === 'chainlink' ? price : allData[allData.length - 1].chainlink,
-        binance: provider === 'binance' ? price : allData[allData.length - 1].binance,
-        coinbase: provider === 'coinbase' ? price : allData[allData.length - 1].coinbase,
+        pyth: provider === 'pyth' ? price : allData[allData.length - 1].pyth || 0,
+        chainlink: provider === 'chainlink' ? price : allData[allData.length - 1].chainlink || 0,
+        binance: provider === 'binance' ? price : allData[allData.length - 1].binance || 0,
+        coinbase: provider === 'coinbase' ? price : allData[allData.length - 1].coinbase || 0,
       })
 
       return {
-        allData: allData.slice(-20),
+        allData: allData.slice(-120),
       }
     }),
 }))

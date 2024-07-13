@@ -218,7 +218,7 @@ export default function AreaMain() {
                     <MCoinbase />
                   </div>
 
-                  {allData.length > 1 && (
+                  {allData.length > 2 && (
                     <div className='absolute bottom-0 left-0 h-[67%] w-full'>
                       <ResponsiveContainer width='100%' height='100%'>
                         <AreaChart
