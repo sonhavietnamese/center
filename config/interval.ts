@@ -1,4 +1,4 @@
-export const TIME_INTERVALS: { id: string; label: string }[] = [
+export const TIME_INTERVALS = [
   {
     id: 'live',
     label: 'Live',
