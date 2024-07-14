@@ -4,6 +4,7 @@ import AreaLogo from '@/components/area-logo'
 import AreaMain from '@/components/area-main'
 import AreaNav from '@/components/area-nav'
 import AreaProvider from '@/components/area-provider'
+import { Suspense } from 'react'
 
 export default function Home() {
   return (
@@ -11,7 +12,9 @@ export default function Home() {
       <AreaLogo />
       <AreaNav />
       <AreaProvider />
-      <AreaMain />
+      <Suspense>
+        <AreaMain />
+      </Suspense>
     </section>
   )
 }
