@@ -1,69 +1,29 @@
 export type SiteConfig = typeof siteConfig
 
 export const siteConfig = {
-	name: 'Oracle Aggregator',
-	description: 'Tool for aggregating data from various sources',
-	navItems: [
-		{
-			label: 'Home',
-			href: '/',
-		},
-		{
-			label: 'Docs',
-			href: '/docs',
-		},
-		{
-			label: 'Pricing',
-			href: '/pricing',
-		},
-		{
-			label: 'Blog',
-			href: '/blog',
-		},
-		{
-			label: 'About',
-			href: '/about',
-		},
-	],
-	navMenuItems: [
-		{
-			label: 'Profile',
-			href: '/profile',
-		},
-		{
-			label: 'Dashboard',
-			href: '/dashboard',
-		},
-		{
-			label: 'Projects',
-			href: '/projects',
-		},
-		{
-			label: 'Team',
-			href: '/team',
-		},
-		{
-			label: 'Calendar',
-			href: '/calendar',
-		},
-		{
-			label: 'Settings',
-			href: '/settings',
-		},
-		{
-			label: 'Help & Feedback',
-			href: '/help-feedback',
-		},
-		{
-			label: 'Logout',
-			href: '/logout',
-		},
-	],
-	links: {
-		github: 'https://github.com/nextui-org/nextui',
-		twitter: 'https://twitter.com/getnextui',
-		docs: 'https://nextui.org',
-		discord: 'https://discord.gg/9b6yyZKmH4',
-		sponsor: 'https://patreon.com/jrgarciadev',
-	},
+  name: 'Oracle Aggregator',
+  description: 'Tool for aggregating data from various sources',
 }
+
+export const PAIRS = [
+  {
+    id: 'btcusd',
+    name: 'BTC/USD',
+    providers: 4,
+  },
+  {
+    id: 'ethusd',
+    name: 'ETH/USD',
+    providers: 4,
+  },
+  {
+    id: 'linkusd',
+    name: 'LINK/USD',
+    providers: 4,
+  },
+  {
+    id: 'solusd',
+    name: 'SOL/USD',
+    providers: 4,
+  },
+]

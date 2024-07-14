@@ -1,5 +1,9 @@
-import { SVGProps } from 'react'
+import type { SVGProps } from 'react'
 
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
-	size?: number
+  size?: number
+}
+
+export type ChartProps = {
+  pair: string
 }

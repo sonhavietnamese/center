@@ -10,7 +10,7 @@ export const PROVIDERS = {
   chainlink: {
     id: 'chainlink',
     name: 'Chainlink',
-    pairs: 6,
+    pairs: 4,
     chain: ['cross-chain'],
     logo: (
       <svg className='h-full w-full' width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'>
@@ -52,7 +52,7 @@ export const PROVIDERS = {
   pyth: {
     id: 'pyth-network',
     name: 'Pyth Network',
-    pairs: 12,
+    pairs: 4,
     chain: ['cross-chain'],
     logo: (
       <svg className='h-full w-full' width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'>
@@ -121,7 +121,7 @@ export const PROVIDERS = {
   binance: {
     id: 'binance',
     name: 'Binance',
-    pairs: 12,
+    pairs: 4,
     chain: ['cross-chain'],
     logo: (
       <svg width='100' className='h-full w-full' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'>
@@ -176,7 +176,7 @@ export const PROVIDERS = {
   coinbase: {
     id: 'coinbase',
     name: 'Coinbase',
-    pairs: 12,
+    pairs: 4,
     chain: ['cross-chain'],
     logo: (
       <svg width='100' className='h-full w-full' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'>

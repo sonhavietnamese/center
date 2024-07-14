@@ -1,4 +1,5 @@
 import { usePriceStore } from '@/stores/price'
+import type { ChartProps } from '@/types'
 import { formatPrice } from '@/utils'
 import { Card, CardBody, CardHeader } from '@nextui-org/card'
 import { MoveDownLeft, MoveUpRight } from 'lucide-react'

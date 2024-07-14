@@ -1,8 +1,12 @@
 // @ts-nocheck
 'use client'
 
+import { BINANCE_PAIRS } from '@/config/binance'
+import { CHAINLINK_PAIRS } from '@/config/chainlink'
+import { COINBASE_PAIRS } from '@/config/coinbase'
 import { TIME_INTERVALS } from '@/config/interval'
-import { connection } from '@/config/pyth'
+import { PYTH_PAIRS, connection } from '@/config/pyth'
+import { PAIRS } from '@/config/site'
 import { type TimeInterval, useTimeIntervalStore } from '@/stores/interval'
 import { type Mode, useModeStore } from '@/stores/mode'
 import { usePriceStore } from '@/stores/price'
@@ -19,7 +23,9 @@ import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base'
 import { Connection, PublicKey, clusterApiUrl } from '@solana/web3.js'
 import { ChevronDown, Search } from 'lucide-react'
-import { useEffect } from 'react'
+import Link from 'next/link'
+import { usePathname, useSearchParams } from 'next/navigation'
+import { useEffect, useRef } from 'react'
 import { Area, AreaChart, ResponsiveContainer, Tooltip, YAxis } from 'recharts'
 import CBinance from './c-binance'
 import CChainlink from './c-chainlink'
@@ -35,6 +41,8 @@ export default function AreaMain() {
   const [timeInterval, setTimeInterval] = useTimeIntervalStore((s) => [s.timeInterval, s.setTimeInterval])
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
+  const pairId = useSearchParams().get('pair') || 'btcusd'
+
   const [
     allData,
     pythData,
@@ -46,6 +54,10 @@ export default function AreaMain() {
     appendBinanceData,
     appendCoinbaseData,
     updateData,
+    clearPythData,
+    clearChainlinkData,
+    clearBinanceData,
+    clearCoinbaseData,
   ] = usePriceStore((s) => [
     s.allData,
     s.pythData,
@@ -57,20 +69,29 @@ export default function AreaMain() {
     s.appendBinanceData,
     s.appendCoinbaseData,
     s.updateData,
+    s.clearPythData,
+    s.clearChainlinkData,
+    s.clearBinanceData,
+    s.clearCoinbaseData,
   ])
 
   // PYTH
   useEffect(() => {
     const fetchPythData = async () => {
-      const priceIds = ['0xe62df6c8b4a85fe1a67db44dc12de5db330f7ac66b72dc658afedf0f4a415b43']
+      if (pairId) {
+        clearPythData()
+        const priceId = PYTH_PAIRS.find((pair) => pair.id === pairId)?.priceId
 
-      connection.subscribePriceFeedUpdates(priceIds, (priceFeed) => {
-        const data = priceFeed.getPriceNoOlderThan(60)
-        if (data) {
-          appendPythData({ conf: Number(data.conf), price: Number(data.price) / 1e8 })
-          updateData('pyth', Number(data.price) / 1e8)
-        }
-      })
+        const priceIds = [priceId]
+
+        connection.subscribePriceFeedUpdates(priceIds, (priceFeed) => {
+          const data = priceFeed.getPriceNoOlderThan(60)
+          if (data) {
+            appendPythData({ conf: Number(data.conf), price: Number(data.price) / 1e8 })
+            updateData('pyth', Number(data.price) / 1e8)
+          }
+        })
+      }
     }
 
     fetchPythData()
@@ -78,12 +99,13 @@ export default function AreaMain() {
     return () => {
       connection.closeWebSocket()
     }
-  }, [])
+  }, [pairId])
 
   // COINBASE
   useEffect(() => {
     const fetchCoinbaseData = async () => {
-      const response = await fetch('https://api.coinbase.com/v2/prices/BTC-USD/spot')
+      const priceId = COINBASE_PAIRS.find((pair) => pair.id === pairId)?.priceId
+      const response = await fetch(`https://api.coinbase.com/v2/prices/${priceId}/spot`)
       const data = await response.json()
       appendCoinbaseData({ conf: 0, price: Number(data.data.amount) })
       updateData('coinbase', Number(data.data.amount))
@@ -96,20 +118,22 @@ export default function AreaMain() {
     return () => {
       clearInterval(intervalCoinbasePrice)
     }
-  }, [])
+  }, [pairId])
 
   // CHAINLINK
   useEffect(() => {
+    let dataFeed = null
+    let listener = null
     const fetchChainlinkData = async () => {
-      const feedAddress = new PublicKey('6PxBx93S8x3tno1TsFZwT5VqP8drrRCbCXygEXYNkFJe')
+      const priceId = CHAINLINK_PAIRS.find((pair) => pair.id === pairId)?.priceId
+      const feedAddress = new PublicKey(priceId)
       const CHAINLINK_PROGRAM_ID = new PublicKey('cjg3oHmg9uuPsP8D6g29NWvhySJkdYdAo9D25PRbKXJ')
 
       const { solana } = window
 
       const provider = new AnchorProvider(new Connection(clusterApiUrl(WalletAdapterNetwork.Devnet)), solana)
 
-      const dataFeed = await OCR2Feed.load(CHAINLINK_PROGRAM_ID, provider)
-      let listener = null
+      dataFeed = await OCR2Feed.load(CHAINLINK_PROGRAM_ID, provider)
       listener = dataFeed.onRound(feedAddress, (event) => {
         appendChainlinkData({ conf: Number(event.answer), price: Number(event.answer) / 1e8 })
         updateData('chainlink', Number(event.answer) / 1e8)
@@ -117,12 +141,17 @@ export default function AreaMain() {
     }
 
     fetchChainlinkData()
-  }, [])
+
+    return () => {
+      dataFeed?.removeListener(listener)
+    }
+  }, [pairId])
 
   // BINANCE
   useEffect(() => {
     const fetchBinanceData = async () => {
-      const response = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT')
+      const priceId = BINANCE_PAIRS.find((pair) => pair.id === pairId)?.priceId
+      const response = await fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${priceId}`)
       const data = await response.json()
       appendBinanceData({ conf: 0, price: Number(data.price) })
       updateData('binance', Number(data.price))
@@ -135,7 +164,7 @@ export default function AreaMain() {
     return () => {
       clearInterval(intervalBinancePrice)
     }
-  }, [])
+  }, [pairId])
 
   const switchMode = (mode: Mode) => {
     setMode(mode)
@@ -145,37 +174,33 @@ export default function AreaMain() {
     setTimeInterval(interval)
   }
 
+  useEffect(() => {
+    if (pairId) {
+      clearPythData()
+      clearChainlinkData()
+      clearBinanceData()
+      clearCoinbaseData()
+    }
+  }, [pairId])
+
   return (
     <div className='flex h-full w-full flex-col'>
       <div className='relative grid flex-1 grid-cols-5 gap-6 p-6'>
         <div className='relative z-10 col-span-4 flex w-full flex-col gap-6'>
           <div className=' flex items-center justify-between'>
             <button type={'button'} onClick={onOpen} className='flex items-center gap-1'>
-              <h1 className='font-semibold text-[30px] leading-none'>BTC/USD</h1>
+              <h1 className='font-semibold text-[30px] leading-none'>{PAIRS.find((pair) => pair.id === pairId)?.name}</h1>
               <ChevronDown className='mt-1 text-default-500' />
             </button>
             <div className='flex items-center gap-2'>
-              <Chip size='sm'>3 Providers</Chip>
-              <Dropdown backdrop='blur'>
-                <DropdownTrigger>
-                  <Button variant='bordered' className='border-1' size='sm'>
-                    <span className='relative flex h-3 w-3'>
-                      <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-success-400 opacity-75' />
-                      <span className='relative inline-flex h-3 w-3 rounded-full bg-success-400' />
-                    </span>
-                    <span>{timeInterval.label}</span>
-                  </Button>
-                </DropdownTrigger>
-                <DropdownMenu variant='faded' aria-label='Dropdown menu with description'>
-                  <DropdownSection title='Intervals'>
-                    {TIME_INTERVALS.map((interval) => (
-                      <DropdownItem onClick={() => switchInterval(interval)} key={interval.id} description='Create a new file'>
-                        {interval.label}
-                      </DropdownItem>
-                    ))}
-                  </DropdownSection>
-                </DropdownMenu>
-              </Dropdown>
+              <Chip size='sm'>4 Providers</Chip>
+              <Button variant='bordered' className='border-1' size='sm'>
+                <span className='relative flex h-3 w-3'>
+                  <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-success-400 opacity-75' />
+                  <span className='relative inline-flex h-3 w-3 rounded-full bg-success-400' />
+                </span>
+                <span>{timeInterval.label}</span>
+              </Button>
 
               <Dropdown backdrop='blur'>
                 <DropdownTrigger>
@@ -310,7 +335,7 @@ export default function AreaMain() {
           <div className='flex flex-col p-6'>
             <div className='flex flex-col '>
               <span className='font-semibold text-[20px]'>Summary</span>
-              <small className='text-default-500'>Average from 3 providers</small>
+              <small className='text-default-500'>Average from 4 providers</small>
             </div>
 
             {pythData.length > 1 && binanceData.length > 1 && coinbaseData.length > 1 && chainlinkData.length > 1 && (
@@ -330,7 +355,7 @@ export default function AreaMain() {
             )}
           </div>
           <button type='button' className='button-g relative left-0 w-full rounded-[28px] border-[16px] border-transparent p-4'>
-            <span className='font-semibold text-sm'>View on DEX</span>
+            <span className='font-semibold text-sm'>Swap on DEX</span>
             <span className='particle' style={{ '--a': '-45deg', '--x': '53%', '--y': '15%', '--d': '4em', '--f': '.7', '--t': '.15' }} />
             <span className='particle' style={{ '--a': '150deg', '--x': '40%', '--y': '70%', '--d': '7.5em', '--f': '.8', '--t': '.08' }} />
             <span className='particle' style={{ '--a': '10deg', '--x': '90%', '--y': '65%', '--d': '7em', '--f': '.6', '--t': '.25' }} />
@@ -348,7 +373,7 @@ export default function AreaMain() {
       </div>
 
       <Modal backdrop='blur' isOpen={isOpen} onOpenChange={onOpenChange} className={''} placement='top-center'>
-        <ModalContent>
+        <ModalContent className='pb-3'>
           {(onClose) => (
             <>
               <ModalHeader className='flex flex-col gap-1'>
@@ -369,27 +394,22 @@ export default function AreaMain() {
                 />
 
                 <div className='mt-3 w-full space-y-1'>
-                  <Card isHoverable className='bg-transparent py-2 pt-1 pb-3 shadow-none'>
-                    <CardHeader className='flex w-full items-center justify-between px-4 pt-2 pb-0'>
-                      <div className='flex flex-col gap-2'>
-                        <p className='font-bold text-tiny uppercase '>SOL/USDC</p>
-                        <Chip size='sm' className='h-5'>
-                          2 providers
-                        </Chip>
-                      </div>
-                      <div className='flex flex-col items-end gap-1'>
-                        <small className='font-semibold text-sm'>$2.00</small>
-                        <small className='text-xs'>+14%</small>
-                      </div>
-                    </CardHeader>
-                  </Card>
+                  {PAIRS.map((pair) => (
+                    <Link href={`/?pair=${pair.id}`} key={pair.id} onClick={onClose}>
+                      <Card isHoverable className='bg-transparent py-2 pt-1 pb-3 shadow-none'>
+                        <CardHeader className='flex w-full items-center justify-between px-4 pt-2 pb-0'>
+                          <div className='flex flex-col gap-2'>
+                            <p className='font-bold text-tiny uppercase '>{pair.name}</p>
+                            <Chip size='sm' className='h-5'>
+                              {pair.providers} providers
+                            </Chip>
+                          </div>
+                        </CardHeader>
+                      </Card>
+                    </Link>
+                  ))}
                 </div>
               </ModalBody>
-              <ModalFooter>
-                <Button color='primary' onPress={onClose}>
-                  Sign in
-                </Button>
-              </ModalFooter>
             </>
           )}
         </ModalContent>

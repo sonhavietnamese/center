@@ -16,7 +16,7 @@ export default function MChainlink() {
         </div>
       </div>
 
-      {chainlinkData.length > 1 && (
+      {chainlinkData.length > 1 ? (
         <div className='mt-6 flex flex-col'>
           <small className='text-default-500'>Price </small>
           <span className='mt-1 font-light text-[32px] leading-none'>
@@ -61,6 +61,10 @@ export default function MChainlink() {
               </>
             )}
           </div>
+        </div>
+      ) : (
+        <div className='mt-6 flex flex-col'>
+          <span className='text-default-500'>Fetching</span>
         </div>
       )}
     </div>

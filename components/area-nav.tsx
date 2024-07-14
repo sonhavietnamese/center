@@ -9,7 +9,7 @@ export default function AreaNav() {
       <div className='flex h-full w-full items-center justify-between px-5 '>
         <div />
         <div className='flex gap-2'>
-          <Input
+          {/* <Input
             aria-label='Search'
             classNames={{
               inputWrapper: 'bg-default-100',
@@ -24,13 +24,13 @@ export default function AreaNav() {
             placeholder='Search...'
             startContent={<Search width={17} className=' pointer-events-none flex-shrink-0 text-default-400' />}
             type='search'
-          />
+          /> */}
 
-          <Button className='bg-[#9353D3] px-6'>
+          {/* <Button className='bg-[#9353D3] px-6'>
             <span className='flex items-center gap-2'>
               <Wallet width={16} /> Connect
             </span>
-          </Button>
+          </Button> */}
         </div>
       </div>
     </div>

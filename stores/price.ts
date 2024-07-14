@@ -15,15 +15,19 @@ export type AllPrice = {
 interface PriceState {
   pythData: Price[]
   appendPythData: (pythData: Price) => void
+  clearPythData: () => void
 
   chainlinkData: Price[]
   appendChainlinkData: (chainlinkData: Price) => void
+  clearChainlinkData: () => void
 
   binanceData: Price[]
   appendBinanceData: (binanceData: Price) => void
+  clearBinanceData: () => void
 
   coinbaseData: Price[]
   appendCoinbaseData: (coinbaseData: Price) => void
+  clearCoinbaseData: () => void
 
   allData: AllPrice[]
   updateData: (provider: string, price: number) => void
@@ -32,15 +36,19 @@ interface PriceState {
 export const usePriceStore = create<PriceState>()((set) => ({
   pythData: [],
   appendPythData: (pythData) => set((state) => ({ pythData: [...state.pythData, pythData].slice(-20) })),
+  clearPythData: () => set({ pythData: [] }),
 
   chainlinkData: [],
   appendChainlinkData: (chainlinkData) => set((state) => ({ chainlinkData: [...state.chainlinkData, chainlinkData].slice(-20) })),
+  clearChainlinkData: () => set({ chainlinkData: [] }),
 
   binanceData: [],
   appendBinanceData: (binanceData) => set((state) => ({ binanceData: [...state.binanceData, binanceData].slice(-20) })),
+  clearBinanceData: () => set({ binanceData: [] }),
 
   coinbaseData: [],
   appendCoinbaseData: (coinbaseData) => set((state) => ({ coinbaseData: [...state.coinbaseData, coinbaseData].slice(-20) })),
+  clearCoinbaseData: () => set({ coinbaseData: [] }),
 
   allData: [
     {

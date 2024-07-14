@@ -17,7 +17,7 @@ export default function CChainlink() {
           <p className=' text-md '>Chainlink</p>
         </div>
       </CardHeader>
-      {chainlinkData.length > 1 && (
+      {chainlinkData.length > 1 ? (
         <CardBody className='mt-5 px-6'>
           <small className='text-default-500'>Price </small>
           <span className='mt-1 font-light text-[32px] leading-none'>
@@ -96,6 +96,10 @@ export default function CChainlink() {
             </ResponsiveContainer>
           </div>
         </CardBody>
+      ) : (
+        <div className='mt-6 flex flex-col px-6'>
+          <span className='text-default-500'>Fetching</span>
+        </div>
       )}
 
       <div className='absolute bottom-[60px] w-full '>

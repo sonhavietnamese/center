@@ -19,14 +19,4 @@ export const CHAINLINK_PAIRS = [
     name: 'SOL/USD',
     priceId: '99B2bTijsU6f1GCT73HmdR7HCFFjGMBcPZY6jZ96ynrR',
   },
-  {
-    id: 'usdcusd',
-    name: 'USDC/USD',
-    priceId: '2EmfL3MqL3YHABudGNmajjCpR13NNEn9Y4LWxbDm6SwR',
-  },
-  {
-    id: 'usdtusd',
-    name: 'USDT/USD',
-    priceId: '8QQSUPtdRTboa4bKyMftVNRfGFsB4Vp9d7r39hGKi53e',
-  },
 ]
